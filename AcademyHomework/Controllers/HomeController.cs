@@ -22,8 +22,14 @@ namespace AcademyHomework.Controllers
             return View();
         }
 
-        public async Task<IActionResult> HomeWork1()
+[HttpGet]public async Task<IActionResult> HomeWork1()        {
+            return View();
+        }
+
+        [HttpPost("{url}")]
+        public IActionResult HomeWork1(string url)
         {
+
             return View();
         }
 

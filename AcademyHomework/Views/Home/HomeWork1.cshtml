@@ -5,10 +5,10 @@
 
 <h2>ส่งการบ้าน</h2>
 
-<form>
+<form method="post" asp-action="HomeWork1" asp-route-url="url">
     <div class="form-group">
         <label>Project URL:</label>
-        <input type="text" class="form-control" placeholder="กรุณากรอก project URL" required>
+        <input id="url" name="url" type="text" class="form-control" placeholder="กรุณากรอก project URL" required>
     </div>
     <button type="submit" class="btn btn-primary">ยืนยัน</button>
 </form>
