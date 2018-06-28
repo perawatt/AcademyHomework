@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AcademyHomework.Models;
 using AcademyHomework.ServicesContract;
+using Newtonsoft.Json;
 
 namespace AcademyHomework.Controllers
 {
     public class HomeController : Controller
     {
-        IQueueService qSvc; 
-        public HomeController(IQueueService qSvc)
+        IQueueService qSvc;
+        IGitService gSvc;
+        public HomeController(IQueueService qSvc, IGitService gSvc)
         {
             this.qSvc = qSvc;
+            this.gSvc = gSvc;
         }
 
         public IActionResult Index()
@@ -22,15 +25,24 @@ namespace AcademyHomework.Controllers
             return View();
         }
 
-[HttpGet]public async Task<IActionResult> HomeWork1()        {
+        [HttpGet]
+        public IActionResult HomeWork1()
+        {
             return View();
         }
 
         [HttpPost("{url}")]
-        public IActionResult HomeWork1(string url)
+        public async Task<IActionResult> HomeWork1(string url)
         {
-
-            return View();
+            var projectName = "Unlocking-ep24-homework";
+            var gitInfo = await gSvc.GetGitInfo(url, projectName);
+            if (gitInfo != null)
+            {
+                var msg = JsonConvert.SerializeObject(gitInfo);
+                var reasult = await qSvc.EnQueue(msg, "homework-queue-test");
+                return RedirectToAction(nameof(Success));
+            }
+            return RedirectToAction(nameof(Error));
         }
 
         public IActionResult Error()

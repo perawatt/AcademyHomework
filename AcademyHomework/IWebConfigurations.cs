@@ -8,5 +8,7 @@ namespace AcademyHomework
     public interface IWebConfigurations
     {
         string QueueStorageConnectionString { get; set; }
-}
+        string GitToken { get; set; }
+        string UserAgent { get; set; }
+    }
 }

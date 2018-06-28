@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Azure; // Namespace for CloudConfigurationManager
-using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
-using Microsoft.WindowsAzure.Storage.Queue; // Namespace for Queue storage types
 using AcademyHomework.ServicesContract;
 using AcademyHomework.Services;
 
@@ -31,6 +28,7 @@ namespace AcademyHomework
             var webconfig = Configuration.GetSection(nameof(WebConfigurations)).Get<WebConfigurations>();
             services.AddTransient<IWebConfigurations>(x => webconfig);
             services.AddTransient<IQueueService, QueueService>();
+            services.AddTransient<IGitService, GitService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

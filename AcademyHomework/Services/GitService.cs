@@ -1,4 +1,5 @@
-﻿using AcademyHomework.ServicesContract;
+﻿using AcademyHomework.Models;
+using AcademyHomework.ServicesContract;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,44 @@ namespace AcademyHomework.Services
 {
     public class GitService : IGitService
     {
-        public string GetUsernameByGitUrl(string url)
+        IWebConfigurations webConfig;
+        public GitService(IWebConfigurations webConfig)
         {
-            var urlSplited = url.Split("/" , StringSplitOptions.RemoveEmptyEntries);
-            var client = new GitHubClient(new ProductHeaderValue("Unlocking_The_Futhur_Code"));
-            var tokenAuth = new Credentials("0ab8687f9efd605baf8812f267d181f5d27979e6");
-            client.Credentials = tokenAuth;
-            var user = client.User.Get(urlSplited[GitstringValuPlattern.username]).Result;
-            throw new NotImplementedException();
+            this.webConfig = webConfig;
+        }
+        public async Task<GitInfo> GetGitInfo(string url, string gitProjectname)
+        {
+            var validate = string.IsNullOrEmpty(url) && string.IsNullOrEmpty(gitProjectname);
+            if (!validate) return null;
+
+            try
+            {
+                var urlSplited = url.Split("/", StringSplitOptions.RemoveEmptyEntries);
+
+                if (string.IsNullOrEmpty(urlSplited[GitstringValuPlattern.projectName]) ||
+                    urlSplited[GitstringValuPlattern.projectName] != gitProjectname) return null;
+
+                var client = new GitHubClient(new ProductHeaderValue(webConfig.UserAgent));
+                var tokenAuth = new Credentials(webConfig.GitToken);
+                client.Credentials = tokenAuth;
+                var username = urlSplited[GitstringValuPlattern.username];
+                var user =  await client.User.Get(username);
+                
+                if (string.IsNullOrEmpty(user.Email)) return null;
+
+                var result = new GitInfo
+                {
+                    Email = user.Email,
+                    Username = username,
+                    GitUrl = url
+                };
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public class GitstringValuPlattern
