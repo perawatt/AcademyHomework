@@ -5,17 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AcademyHomework.Models;
+using AcademyHomework.ServicesContract;
 
 namespace AcademyHomework.Controllers
 {
     public class HomeController : Controller
     {
+        IQueueService qSvc; 
+        public HomeController(IQueueService qSvc)
+        {
+            this.qSvc = qSvc;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult HomeWork1()
+        public async Task<IActionResult> HomeWork1()
         {
             return View();
         }
