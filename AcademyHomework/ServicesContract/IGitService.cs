@@ -13,6 +13,6 @@ namespace AcademyHomework.ServicesContract
         /// </summary>
         /// <param name="url">url ของ Git</param>
         /// <returns></returns>
-        Task<GitInfo> GetGitInfo(string url, string gitProjectname);
+        Task<GitInfo> GetGitInfo(string url, string gitProjectname, string gitTestProjectPath);
     }
 }

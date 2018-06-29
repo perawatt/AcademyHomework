@@ -9,8 +9,9 @@ namespace AcademyHomework.Models
     {
         public static ProjectInfo EP24 { get; set; } = new ProjectInfo
         {
-            ProjectName = "",
-            ProjectTestPath = ""
+            ProjectName = "DemoTestforAcademy-true",
+            ProjectTestPath = "Training.TestDrivenDevelopement/TDD.TestProject",
+            ProjectQueuename = "homework-queue-test"
         };
     }
 
@@ -18,5 +19,6 @@ namespace AcademyHomework.Models
     {
         public string ProjectName { get; set; }
         public string ProjectTestPath { get; set; }
+        public string ProjectQueuename { get; set; }
     }
 }

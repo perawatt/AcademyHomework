@@ -34,13 +34,11 @@ namespace AcademyHomework.Controllers
         [HttpPost("{url}")]
         public async Task<IActionResult> HomeWork1(string url)
         {
-            var projectName = "Unlocking-ep24-homework";
-            var gitInfo = await gSvc.GetGitInfo(url, projectName);
+            var gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName,ProjectsInfo.EP24.ProjectTestPath);
             if (gitInfo != null)
             {
                 var msg = JsonConvert.SerializeObject(gitInfo);
-                //TODO: require QueueStorageConnectionString, queueName of true enviroinment talk to (P'Au)
-                var reasult = await qSvc.EnQueue(msg, "homework-queue-test");
+                var reasult = await qSvc.EnQueue(msg, ProjectsInfo.EP24.ProjectQueuename);
                 return RedirectToAction(nameof(Success));
             }
             return RedirectToAction(nameof(Error));

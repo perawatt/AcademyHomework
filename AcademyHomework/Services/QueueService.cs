@@ -21,12 +21,20 @@ namespace AcademyHomework.Services
 
         public async Task<bool> EnQueue(string message, string queueReference)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(webConfig.QueueStorageConnectionString);
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            CloudQueue messageQueue = queueClient.GetQueueReference(queueReference);
-            CloudQueueMessage qMessage = new CloudQueueMessage(message);
-            await messageQueue.AddMessageAsync(qMessage);
-            return true;
+            try
+            {
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(webConfig.QueueStorageConnectionString);
+                CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+                CloudQueue messageQueue = queueClient.GetQueueReference(queueReference);
+                CloudQueueMessage qMessage = new CloudQueueMessage(message);
+                await messageQueue.AddMessageAsync(qMessage);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }  
     }
 }

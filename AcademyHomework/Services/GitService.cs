@@ -15,12 +15,8 @@ namespace AcademyHomework.Services
         {
             this.webConfig = webConfig;
         }
-
-        //TODO: add GitTestProjectPath parameter in GitInfo
-        //TODO: add check other condition talk to (P'Au)
-        //TODO: add token expire talk to (P'Au)
-        //TODO: require gitProjectname, GitTestProjectPath, etc. from (P'To)
-        public async Task<GitInfo> GetGitInfo(string url, string gitProjectname)
+        
+        public async Task<GitInfo> GetGitInfo(string url, string gitProjectname,string gitTestProjectPath)
         {
             var validate = !string.IsNullOrEmpty(url) && !string.IsNullOrEmpty(gitProjectname);
             if (!validate) return null;
@@ -30,11 +26,13 @@ namespace AcademyHomework.Services
                 var urlSplited = url.Split("/", StringSplitOptions.RemoveEmptyEntries);
 
                 if (string.IsNullOrEmpty(urlSplited[GitstringValuPlattern.projectName]) ||
-                    urlSplited[GitstringValuPlattern.projectName] != gitProjectname) return null;
+                    urlSplited[GitstringValuPlattern.projectName] != gitProjectname+".git") return null;
 
                 var client = new GitHubClient(new ProductHeaderValue(webConfig.UserAgent));
-                var tokenAuth = new Credentials(webConfig.GitToken);
-                client.Credentials = tokenAuth;
+                //Auth
+                var basicAuth = new Credentials(webConfig.Username, webConfig.Password); 
+                client.Credentials = basicAuth;
+                //Get user
                 var username = urlSplited[GitstringValuPlattern.username];
                 var user =  await client.User.Get(username);
                 
@@ -44,7 +42,8 @@ namespace AcademyHomework.Services
                 {
                     Email = user.Email,
                     Username = username,
-                    GitUrl = url
+                    GitUrl = url,
+                    GitTestProjectPath = gitTestProjectPath
                 };
 
                 return result;
