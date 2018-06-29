@@ -15,9 +15,14 @@ namespace AcademyHomework.Services
         {
             this.webConfig = webConfig;
         }
+
+        //TODO: add GitTestProjectPath parameter in GitInfo
+        //TODO: add check other condition talk to (P'Au)
+        //TODO: add token expire talk to (P'Au)
+        //TODO: require gitProjectname, GitTestProjectPath, etc. from (P'To)
         public async Task<GitInfo> GetGitInfo(string url, string gitProjectname)
         {
-            var validate = string.IsNullOrEmpty(url) && string.IsNullOrEmpty(gitProjectname);
+            var validate = !string.IsNullOrEmpty(url) && !string.IsNullOrEmpty(gitProjectname);
             if (!validate) return null;
 
             try
@@ -44,7 +49,7 @@ namespace AcademyHomework.Services
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

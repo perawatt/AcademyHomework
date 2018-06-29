@@ -39,6 +39,7 @@ namespace AcademyHomework.Controllers
             if (gitInfo != null)
             {
                 var msg = JsonConvert.SerializeObject(gitInfo);
+                //TODO: require QueueStorageConnectionString, queueName of true enviroinment talk to (P'Au)
                 var reasult = await qSvc.EnQueue(msg, "homework-queue-test");
                 return RedirectToAction(nameof(Success));
             }

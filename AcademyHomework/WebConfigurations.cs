@@ -10,5 +10,8 @@ namespace AcademyHomework
         public string QueueStorageConnectionString { get; set; }
         public string GitToken { get; set; }
         public string UserAgent { get; set; }
+
     }
+
+
 }

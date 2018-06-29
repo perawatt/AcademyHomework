@@ -10,5 +10,6 @@ namespace AcademyHomework.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string GitUrl { get; set; }
+        public string GitTestProjectPath { get; set; }
     }
 }
