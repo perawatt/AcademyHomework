@@ -9,8 +9,8 @@ namespace AcademyHomework.Models
     {
         public static ProjectInfo EP24 { get; set; } = new ProjectInfo
         {
-            ProjectName = "DemoTestforAcademy-true",
-            ProjectTestPath = "Training.TestDrivenDevelopement/TDD.TestProject",
+            ProjectName = "unlocking-ep24-homework",
+            ProjectTestPath = "ep24.web.tests",
             ProjectQueuename = "homework-queue-test"
         };
     }

@@ -26,7 +26,7 @@ namespace AcademyHomework.Services
                 var urlSplited = url.Split("/", StringSplitOptions.RemoveEmptyEntries);
 
                 if (string.IsNullOrEmpty(urlSplited[GitstringValuPlattern.projectName]) ||
-                    urlSplited[GitstringValuPlattern.projectName] != gitProjectname+".git") return null;
+                    urlSplited[GitstringValuPlattern.projectName].Replace(".git","") != gitProjectname) return null;
 
                 var client = new GitHubClient(new ProductHeaderValue(webConfig.UserAgent));
                 //Auth
