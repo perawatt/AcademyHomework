@@ -34,18 +34,26 @@ namespace AcademyHomework.Controllers
         [HttpPost("{url}")]
         public async Task<IActionResult> HomeWork1(string url)
         {
-            var gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName,ProjectsInfo.EP24.ProjectTestPath);
-            if (gitInfo != null)
+            try
             {
-                var msg = JsonConvert.SerializeObject(gitInfo);
-                var reasult = await qSvc.EnQueue(msg, ProjectsInfo.EP24.ProjectQueuename);
-                return RedirectToAction(nameof(Success));
+                var gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName, ProjectsInfo.EP24.ProjectTestPath);
+                if (gitInfo != null)
+                {
+                    var msg = JsonConvert.SerializeObject(gitInfo);
+                    var reasult = await qSvc.EnQueue(msg, ProjectsInfo.EP24.ProjectQueuename);
+                    return RedirectToAction(nameof(Success));
+                }
+                else return RedirectToAction(nameof(Error), new { errorMsg = "เกิดข้อผิดพลาดในระหว่างดำเนินการ กรุณาลองอีกครั้ง" });
             }
-            return RedirectToAction(nameof(Error));
+            catch (Exception e)
+            {
+                return RedirectToAction(nameof(Error), new { errorMsg = e.Message});
+            }
         }
 
-        public IActionResult Error()
+        public IActionResult Error(string errorMsg)
         {
+            ViewBag.ErrorMsg = errorMsg;
             return View();
         }
 

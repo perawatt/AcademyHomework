@@ -30,9 +30,9 @@ namespace AcademyHomework.Services
                 await messageQueue.AddMessageAsync(qMessage);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+                throw new Exception("เกิดข้อผิดพลาดในระหว่างดำเนิน กรุณาลองอีกครั้ง");
             }
 
         }  
