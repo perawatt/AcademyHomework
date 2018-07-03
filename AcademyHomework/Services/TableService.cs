@@ -40,7 +40,7 @@ namespace AcademyHomework.Services
             var data = new TableData(gitInfo)
             {
                 PartitionKey = gitInfo.Username,
-                RowKey = gitInfo.Username
+                RowKey = Guid.NewGuid().ToString()
             };
             var insertOperation = TableOperation.Insert(data);
             await table.ExecuteAsync(insertOperation);
