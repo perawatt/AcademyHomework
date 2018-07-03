@@ -14,10 +14,12 @@ namespace AcademyHomework.Controllers
     {
         IQueueService qSvc;
         IGitService gSvc;
-        public HomeController(IQueueService qSvc, IGitService gSvc)
+        ITableService tableSvc;
+        public HomeController(IQueueService qSvc, IGitService gSvc, ITableService tableSvc)
         {
             this.qSvc = qSvc;
             this.gSvc = gSvc;
+            this.tableSvc = tableSvc;
         }
 
         public IActionResult Index()
@@ -41,6 +43,11 @@ namespace AcademyHomework.Controllers
                 {
                     var msg = JsonConvert.SerializeObject(gitInfo);
                     var reasult = await qSvc.EnQueue(msg, ProjectsInfo.EP24.ProjectQueuename);
+
+                    // Upload data to table
+                    const string tableReference = "earntest";
+                    await tableSvc.Upload(gitInfo, tableReference);
+                    
                     return RedirectToAction(nameof(Success));
                 }
                 else return RedirectToAction(nameof(Error), new { errorMsg = "เกิดข้อผิดพลาดในระหว่างดำเนินการ กรุณาลองอีกครั้ง" });
