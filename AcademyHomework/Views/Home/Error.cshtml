@@ -3,6 +3,11 @@
     ViewData["Title"] = "Error";
 }
 
-<h2 class="text-danger">ส่งการบ้านไม่สำเร็จ !</h2>
+<div style="background-color: white; border-radius: 5px 5px; padding: 2em">
 
-<label>@ViewBag.ErrorMsg</label>
+    <img class="img-responsive" src="~/images/banner.png" style="border-radius: 5px 5px" />
+    <h2 class="text-danger">ส่งการบ้านไม่สำเร็จ !</h2>
+    <p><b>เนื่องจาก:</b> @ViewBag.ErrorMsg</p>
+    <hr />
+    <a asp-action="Index" class="btn btn-block btn-lg btn-primary">กลับไปหน้าหลัก</a>
+</div>

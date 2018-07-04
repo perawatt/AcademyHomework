@@ -16,8 +16,8 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+<body style="background-image: url(/images/background.jpg); background-repeat: repeat; padding-top: 20px">
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,13 +36,13 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav>*@
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer>
             <p>&copy; 2018 - AcademyHomework</p>
-        </footer>
+        </footer>*@
     </div>
 
     <environment include="Development">

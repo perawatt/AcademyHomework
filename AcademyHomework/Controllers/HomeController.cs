@@ -26,15 +26,9 @@ namespace AcademyHomework.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public IActionResult HomeWork1()
-        {
-            return View();
-        }
-
+        
         [HttpPost("{url}")]
-        public async Task<IActionResult> HomeWork1(string url)
+        public async Task<IActionResult> Index(string url)
         {
             try
             {
@@ -47,16 +41,48 @@ namespace AcademyHomework.Controllers
                     // Upload data to table
                     const string tableReference = "earntest";
                     await tableSvc.Upload(gitInfo, tableReference);
-                    
+
                     return RedirectToAction(nameof(Success));
                 }
                 else return RedirectToAction(nameof(Error), new { errorMsg = "เกิดข้อผิดพลาดในระหว่างดำเนินการ กรุณาลองอีกครั้ง" });
             }
             catch (Exception e)
             {
-                return RedirectToAction(nameof(Error), new { errorMsg = e.Message});
+                return RedirectToAction(nameof(Error), new { errorMsg = e.Message });
             }
         }
+
+
+        //[HttpGet]
+        //public IActionResult HomeWork1()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost("{url}")]
+        //public async Task<IActionResult> HomeWork1(string url)
+        //{
+        //    try
+        //    {
+        //        var gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName, ProjectsInfo.EP24.ProjectTestPath);
+        //        if (gitInfo != null)
+        //        {
+        //            var msg = JsonConvert.SerializeObject(gitInfo);
+        //            var reasult = await qSvc.EnQueue(msg, ProjectsInfo.EP24.ProjectQueuename);
+
+        //            // Upload data to table
+        //            const string tableReference = "earntest";
+        //            await tableSvc.Upload(gitInfo, tableReference);
+                    
+        //            return RedirectToAction(nameof(Success));
+        //        }
+        //        else return RedirectToAction(nameof(Error), new { errorMsg = "เกิดข้อผิดพลาดในระหว่างดำเนินการ กรุณาลองอีกครั้ง" });
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return RedirectToAction(nameof(Error), new { errorMsg = e.Message});
+        //    }
+        //}
 
         public IActionResult Error(string errorMsg)
         {
@@ -69,19 +95,19 @@ namespace AcademyHomework.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+        //public IActionResult About()
+        //{
+        //    ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+        //public IActionResult Contact()
+        //{
+        //    ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         //public IActionResult Error()
         //{
