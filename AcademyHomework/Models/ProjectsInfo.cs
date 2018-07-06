@@ -13,6 +13,13 @@ namespace AcademyHomework.Models
             ProjectTestPath = "ep24.web.tests",
             ProjectQueuename = "homework-queue-test"
         };
+        
+        public static ProjectInfo EP27 { get; set; } = new ProjectInfo
+        {
+            ProjectName = "unlocking-ep27",
+            ProjectTestPath = "temperature.test",
+            ProjectQueuename = "homework-queue-test"
+        };
     }
 
     public class ProjectInfo

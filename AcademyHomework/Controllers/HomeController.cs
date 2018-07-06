@@ -26,13 +26,19 @@ namespace AcademyHomework.Controllers
         {
             return View();
         }
-        
+
         [HttpPost("{url}")]
         public async Task<IActionResult> Index(string url)
         {
             try
             {
-                var gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName, ProjectsInfo.EP24.ProjectTestPath);
+                var startIndex = url.ToLower().IndexOf("ep");
+                var ep = url.Substring(startIndex, 4);
+
+                var gitInfo = new GitInfo();
+                if (ep == "ep24") gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName, ProjectsInfo.EP24.ProjectTestPath);
+                else if (ep == "ep27") gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP27.ProjectName, ProjectsInfo.EP27.ProjectTestPath);
+
                 if (gitInfo != null)
                 {
                     var msg = JsonConvert.SerializeObject(gitInfo);
@@ -73,7 +79,7 @@ namespace AcademyHomework.Controllers
         //            // Upload data to table
         //            const string tableReference = "earntest";
         //            await tableSvc.Upload(gitInfo, tableReference);
-                    
+
         //            return RedirectToAction(nameof(Success));
         //        }
         //        else return RedirectToAction(nameof(Error), new { errorMsg = "เกิดข้อผิดพลาดในระหว่างดำเนินการ กรุณาลองอีกครั้ง" });
