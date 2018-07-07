@@ -35,7 +35,7 @@ namespace AcademyHomework.Controllers
                 var startIndex = url.ToLower().IndexOf("unlocking-ep");
                 var ep = url.Substring(startIndex, 14);
 
-                var gitInfo = new GitInfo();
+                GitInfo gitInfo = null;
                 if (ep == "unlocking-ep24") gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP24.ProjectName, ProjectsInfo.EP24.ProjectTestPath);
                 else if (ep == "unlocking-ep27") gitInfo = await gSvc.GetGitInfo(url, ProjectsInfo.EP27.ProjectName, ProjectsInfo.EP27.ProjectTestPath);
 
